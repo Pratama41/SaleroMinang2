@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Nasi Box - RM. Salero Minang</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #fffbea;
+        }
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: #163e43;
+        }
+        .card {
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-6px) scale(1.03);
+        }
+        .card-img-box {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        .btn-back {
+            background-color: #FFD600;
+            color: #163e43;
+            font-weight: 600;
+        }
+        .btn-back:hover {
+            background-color: #FFC300;
+            color: #163e43;
+        }
+        .card-horizontal {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 32px;
+        }
+        @media (max-width: 768px) {
+            .card-horizontal {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .card-img-box {
+                width: 100%;
+                height: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ...existing code... -->
+
+<!-- Popup Audio Player Mini Bawah Kanan dengan Grafik Musik -->
+<div id="audio-popup" style="
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  background: #198754;
+  color: #fff;
+  border-radius: 30px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  padding: 8px 14px 8px 14px;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  max-width: 90vw;
+  z-index: 9999;
+">
+  <!-- Grafik Musik -->
+  <span id="music-visual" style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #fff;
+    margin-right: 8px;
+    overflow: hidden;
+  ">
+    <svg width="22" height="22" viewBox="0 0 22 22">
+      <rect class="bar bar1" x="2" y="6" width="3" height="10" rx="1.5" fill="#198754"/>
+      <rect class="bar bar2" x="8" y="3" width="3" height="16" rx="1.5" fill="#198754"/>
+      <rect class="bar bar3" x="14" y="8" width="3" height="8" rx="1.5" fill="#198754"/>
+    </svg>
+  </span>
+  <!-- Tombol Pause/Play -->
+  <button id="audio-toggle" style="
+    border: none;
+    background: #fff;
+    color: #198754;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-left: 0;
+  ">
+    <i id="audio-icon" class="fa-solid fa-pause"></i>
+  </button>
+  <audio id="bg-audio" src="css/audio/MudiakArau.mp3" autoplay loop></audio>
+</div>
+
+<style>
+  /* Animasi grafik musik */
+  .bar {
+    transition: y 0.2s, height 0.2s;
+  }
+  .music-animate .bar1 {
+    animation: bar1move 0.7s infinite;
+  }
+  .music-animate .bar2 {
+    animation: bar2move 0.7s infinite;
+  }
+  .music-animate .bar3 {
+    animation: bar3move 0.7s infinite;
+  }
+  @keyframes bar1move {
+    0%,100% { y:6; height:10; }
+    20% { y:10; height:6; }
+    40% { y:8; height:8; }
+    60% { y:12; height:4; }
+    80% { y:7; height:9; }
+  }
+  @keyframes bar2move {
+    0%,100% { y:3; height:16; }
+    20% { y:7; height:12; }
+    40% { y:5; height:14; }
+    60% { y:10; height:9; }
+    80% { y:4; height:15; }
+  }
+  @keyframes bar3move {
+    0%,100% { y:8; height:8; }
+    20% { y:12; height:4; }
+    40% { y:10; height:6; }
+    60% { y:14; height:2; }
+    80% { y:9; height:7; }
+  }
+</style>
+
+<script>
+  const audio = document.getElementById('bg-audio');
+  const btn = document.getElementById('audio-toggle');
+  const icon = document.getElementById('audio-icon');
+  const musicVisual = document.getElementById('music-visual');
+
+  function setMusicVisual(isPlaying) {
+    if (isPlaying) {
+      musicVisual.classList.add('music-animate');
+      icon.className = 'fa-solid fa-pause';
+    } else {
+      musicVisual.classList.remove('music-animate');
+      icon.className = 'fa-solid fa-play';
+    }
+  }
+
+  btn.onclick = function() {
+    if (audio.paused) {
+      audio.play();
+      setMusicVisual(true);
+    } else {
+      audio.pause();
+      setMusicVisual(false);
+    }
+  };
+
+  // Set visual saat audio play/pause (jika user pause/play dari luar tombol)
+  audio.addEventListener('play', () => setMusicVisual(true));
+  audio.addEventListener('pause', () => setMusicVisual(false));
+
+  // Inisialisasi visual saat load
+  window.addEventListener('DOMContentLoaded', () => {
+    setMusicVisual(!audio.paused);
+  });
+</script>
+<!-- ...existing code... -->
+
+
+    <!-- Header -->
+    <div class="container py-5 text-center">
+        <h1 class="mb-3">Menu Nasi Box</h1>
+        <p class="lead">Pilihan paket nasi box praktis dan lezat untuk berbagai acara Anda.</p>
+    </div>
+
+    <!-- Grid Menu -->
+    <div class="container pb-5">
+        <div class="row g-4">
+
+            <!-- Nasi Box 1 -->
+            <div class="col-12">
+                <div class="card card-horizontal mb-4">
+                    <img src="css/img/nasibox1.jpeg" class="card-img-box" alt="Paket Ekonomis">
+                    <div class="card-body">
+                        <h5 class="card-title">Paket Ekonomis</h5>
+                        <ul>
+                            <li>Nasi putih</li>
+                            <li>Ayam (goreng / balado merah / balado hijau / gulai)</li>
+                            <li>Sambal Balado</li>
+                            <li>Daun Singkong</li>
+                            <li>Sayur Nangka</li>
+                        </ul>
+                        <p class="card-text">Sederhana tapi bikin hati bahagia.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nasi Box 2 -->
+            <div class="col-12">
+                <div class="card card-horizontal mb-4">
+                    <img src="css/img/nasibox2.jpg" class="card-img-box" alt="Paket Standar">
+                    <div class="card-body">
+                        <h5 class="card-title">Paket Standar</h5>
+                        <ul>
+                            <li>Nasi putih</li>
+                            <li>Ayam (goreng / balado merah / balado hijau / gulai)</li>
+                            <li>Sambal Balado</li>
+                            <li>Daun Singkong</li>
+                            <li>Sayur Nangka</li>
+                            <li>Kerupuk</li>
+                        </ul>
+                        <p class="card-text">Cocok untuk acara kantor, arisan, dan syukuran keluarga</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nasi Box 3 -->
+            <div class="col-12">
+                <div class="card card-horizontal mb-4">
+                    <img src="css/img/nasibox3.jpg" class="card-img-box" alt="Paket Spesial">
+                    <div class="card-body">
+                        <h5 class="card-title">Paket Spesial</h5>
+                        <ul>
+                            <li>Nasi putih</li>
+                            <li>Rendang Sapi</li>
+                            <li>Sambal Balado</li>
+                            <li>Daun Singkong</li>
+                            <li>Sayur Nangka</li>
+                            <li>Perkedel Kentang</li>
+                            <li>Kerupuk</li>
+                            <li>Air mineral botol</li>
+                        </ul>
+                        <p class="card-text">Pilihan favorit untuk tamu VIP dan acara spesial</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nasi Box 4 -->
+            <div class="col-12">
+                <div class="card card-horizontal mb-4">
+                    <img src="css/img/nasibox4.jpg" class="card-img-box" alt="Paket Premium">
+                    <div class="card-body">
+                        <h5 class="card-title">Paket Premium</h5>
+                        <ul>
+                            <li>Nasi putih</li>
+                            <li>Rendang Sapi</li>
+                            <li>Sambal Balado</li>
+                            <li>Daun Singkong</li>
+                            <li>Sayur Nangka</li>
+                            <li>Perkedel Kentang</li>
+                            <li>Kerupuk</li>
+                            <li>Buah (jeruk, semangka, melon)</li>
+                            <li>Air mineral botol</li>
+                        </ul>
+                        <p class="card-text">Menu lengkap untuk acara istimewa.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Tombol Kembali -->
+        <div class="text-center mt-5">
+            <a href="index.html#menu-nasibox" class="btn btn-back px-4 py-2 rounded-pill shadow">
+                <i class="fa-solid fa-arrow-left me-2"></i> Kembali ke Menu Utama
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
