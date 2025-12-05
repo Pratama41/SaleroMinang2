@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SALERO MINANG - Landing Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/index.css"/>
+</head>
+<body>
+
+<!-- ...existing code... -->
+
+<!-- Popup Audio Player Mini Bawah Kanan dengan Grafik Musik -->
+<div id="audio-popup" style="
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  background: #198754;
+  color: #fff;
+  border-radius: 30px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  padding: 8px 14px 8px 14px;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  max-width: 90vw;
+  z-index: 9999;
+">
+  <!-- Grafik Musik -->
+  <span id="music-visual" style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #fff;
+    margin-right: 8px;
+    overflow: hidden;
+  ">
+    <svg width="22" height="22" viewBox="0 0 22 22">
+      <rect class="bar bar1" x="2" y="6" width="3" height="10" rx="1.5" fill="#198754"/>
+      <rect class="bar bar2" x="8" y="3" width="3" height="16" rx="1.5" fill="#198754"/>
+      <rect class="bar bar3" x="14" y="8" width="3" height="8" rx="1.5" fill="#198754"/>
+    </svg>
+  </span>
+  <!-- Tombol Pause/Play -->
+  <button id="audio-toggle" style="
+    border: none;
+    background: #fff;
+    color: #198754;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-left: 0;
+  ">
+    <i id="audio-icon" class="fa-solid fa-pause"></i>
+  </button>
+  <audio id="bg-audio" src="css/audio/MudiakArau.mp3" autoplay loop></audio>
+</div>
+
+<style>
+  /* Animasi grafik musik */
+  .bar {
+    transition: y 0.2s, height 0.2s;
+  }
+  .music-animate .bar1 {
+    animation: bar1move 0.7s infinite;
+  }
+  .music-animate .bar2 {
+    animation: bar2move 0.7s infinite;
+  }
+  .music-animate .bar3 {
+    animation: bar3move 0.7s infinite;
+  }
+  @keyframes bar1move {
+    0%,100% { y:6; height:10; }
+    20% { y:10; height:6; }
+    40% { y:8; height:8; }
+    60% { y:12; height:4; }
+    80% { y:7; height:9; }
+  }
+  @keyframes bar2move {
+    0%,100% { y:3; height:16; }
+    20% { y:7; height:12; }
+    40% { y:5; height:14; }
+    60% { y:10; height:9; }
+    80% { y:4; height:15; }
+  }
+  @keyframes bar3move {
+    0%,100% { y:8; height:8; }
+    20% { y:12; height:4; }
+    40% { y:10; height:6; }
+    60% { y:14; height:2; }
+    80% { y:9; height:7; }
+  }
+</style>
+
+<script>
+  const audio = document.getElementById('bg-audio');
+  const btn = document.getElementById('audio-toggle');
+  const icon = document.getElementById('audio-icon');
+  const musicVisual = document.getElementById('music-visual');
+
+  function setMusicVisual(isPlaying) {
+    if (isPlaying) {
+      musicVisual.classList.add('music-animate');
+      icon.className = 'fa-solid fa-pause';
+    } else {
+      musicVisual.classList.remove('music-animate');
+      icon.className = 'fa-solid fa-play';
+    }
+  }
+
+  btn.onclick = function() {
+    if (audio.paused) {
+      audio.play();
+      setMusicVisual(true);
+    } else {
+      audio.pause();
+      setMusicVisual(false);
+    }
+  };
+
+  // Set visual saat audio play/pause (jika user pause/play dari luar tombol)
+  audio.addEventListener('play', () => setMusicVisual(true));
+  audio.addEventListener('pause', () => setMusicVisual(false));
+
+  // Inisialisasi visual saat load
+  window.addEventListener('DOMContentLoaded', () => {
+    setMusicVisual(!audio.paused);
+  });
+</script>
+<!-- ...existing code... -->
+
+  <!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-custom justify-content-center">
+  <div class="container justify-content-center">
+    <a href="https://wa.me/6282228405121" target="_blank" class="d-flex align-items-center justify-content-center mx-auto p-2 rounded bg-success text-white fw-bold fs-5 text-decoration-none" style="width: 200px;">
+      <i class="fa-brands fa-whatsapp me-2"></i>
+      Hubungi Kami
+    </a>
+  </div>
+</nav>
+
+  <!-- Section Beranda -->
+  <section id="beranda" class="hero-section text-white d-flex align-items-center">
+    <!-- <div class="container text-center">
+      <h1 class="display-5 fw-bold" style="font-family: 'Agbalumo', cursive; letter-spacing: 2px;">
+        “Hidangan Minang, Hangatkan Kebersamaan”
+      </h1>
+      <p class="lead mt-4" style="font-family: 'Agbalumo', cursive; font-weight: 600;">
+      - RM.SALERO MINANG 2 -
+      </p>
+    </div> -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  </section>
+
+    <!-- Section Tentang Kami -->
+    <section id="tentang" class="py-5 d-flex align-items-center justify-content-center" style="background:#FFD600;">
+      <div class="container">
+      <div class="row justify-content-center">
+      <div class="col-lg-12"> <!-- Ubah ke col-lg-12 agar kotak maksimal lebar -->
+      <div class="p-4 rounded" style="background: #ffffff; box-shadow: 0 2px 16px rgba(0,0,0,0.07);">
+        <h2 class="text-center mb-3" style="color: #163e43;">Tentang Kami</h2>
+        <p class="lead text-center mb-0" style="font-size:1.15rem;">
+        Di Salero Minang, setiap hidangan disajikan dengan cita rasa otentik khas Minangkabau. Masakan kami dibuat langsung oleh orang Minang asli yang menjaga resep turun-temurun agar tetap terjaga keaslian rasanya. Dari rendang hingga gulai, setiap bumbu diracik dengan rempah pilihan sehingga menghadirkan rasa yang “lamak bana” dan membawa Anda seolah menikmati sajian langsung dari ranah Minang.<br><br>
+        Lebih dari sekadar makanan, setiap hidangan kami hadir untuk membawa kehangatan dalam kebersamaan, menyatukan rasa dan cerita di setiap meja makan.
+        </p>
+      </div>
+      </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- Section Menu Makanan -->
+    <section id="menu-makanan" class="py-5 bg-yellow">
+      <div class="container">
+        <h2 class="mb-4 text-center" style="color: #163e43;">Menu Makanan Favorit</h2>
+        <div class="row justify-content-center">
+          <!-- Makanan 1 -->
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <img src="css/img/rendang.jpg" class="card-img-top" alt="Rendang">
+              <div class="card-body text-center">
+                <h5 class="card-title">Rendang</h5>
+                <p class="card-text">Daging sapi dimasak dengan rempah khas Minang, gurih dan pedas.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Makanan 2 -->
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <img src="css/img/dendeng.jpg" class="card-img-top" alt="Dendeng Balado">
+              <div class="card-body text-center">
+                <h5 class="card-title">Dendeng Balado</h5>
+                <p class="card-text">Daging sapi yang diiris tipis, digoreng dan disajikan dengan sambal balado.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Makanan 3 -->
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <img src="css/img/kakap.jpg" class="card-img-top" alt="Kepala Kakap">
+              <div class="card-body text-center">
+                <h5 class="card-title">Kepala Kakap</h5>
+                <p class="card-text">Kepala ikan kakap dimasak dengan bumbu kuning khas Minang.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Tambah menu makanan lain di sini -->
+        </div>
+        <!-- Tombol Menu Lainnya di Tengah Bawah -->
+        <div class="d-flex justify-content-center mt-4">
+          <a href="makanan.html" class="btn btn-lg px-4 rounded-pill shadow" style="background: #198754; color: #fff;">
+            Menu Makanan Lainnya
+          </a>
+        </div>
+            </div>
+          </section>
+
+  <!-- Section Menu Minuman -->
+  <section id="menu-minuman" class="py-5 bg-yellow">
+    <div class="container">
+      <h2 class="mb-4 text-center" style="color: #163e43;">Menu Minuman</h2>
+      <div class="row justify-content-center">
+        <!-- Minuman 1 -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <img src="css/img/esteh.jpg" class="card-img-top" alt="Teh Es">
+            <div class="card-body text-center">
+              <h5 class="card-title">Es Teh</h5>
+              <p class="card-text">Teh dingin dengan es batu.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Minuman 2 -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <img src="css/img/escampur.jpg" class="card-img-top" alt="Es Campur">
+            <div class="card-body text-center">
+              <h5 class="card-title">Es Campur</h5>
+              <p class="card-text">Campuran buah segar dengan es serut dan sirup manis.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Minuman 3 -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <img src="css/img/alpokat.jpg" class="card-img-top" alt="Alpukat">
+            <div class="card-body text-center">
+              <h5 class="card-title">Alpukat</h5>
+              <p class="card-text">Minuman segar dari buah alpukat yang creamy.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Tambah menu minuman lain di sini -->
+      </div>
+        <!-- Tombol Menu Lainnya di Tengah Bawah -->
+        <div class="d-flex justify-content-center mt-4">
+          <a href="minuman.html" class="btn btn-success btn-lg px-4 rounded-pill shadow" style="background: #198754; color: #fff;">
+            Menu Minuman Lainnya
+          </a>
+        </div>
+    </div>
+  </section>
+      </div>
+
+      <!-- Section Menu Nasi Box -->
+      <section id="menu-nasibox" class="py-5 bg-yellow">
+        <div class="container">
+          <h2 class="mb-4 text-center" style="color: #163e43;">Menu Nasi Box</h2>
+          <div class="row justify-content-center">
+            <!-- Nasi Box 1 -->
+            <div class="col-md-4 mb-4">
+              <div class="card h-100">
+                <img src="css/img/nasibox1.jpeg" class="card-img-top" alt="Nasi Box Ekonomis">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Nasi Box Ekonomis</h5>
+                  <p class="card-text">Nasi putih, Ayam, sambal, sayur.</p>
+                </div>
+              </div>
+            </div>
+            <!-- Nasi Box 2 -->
+            <div class="col-md-4 mb-4">
+              <div class="card h-100">
+                <img src="css/img/nasibox4.jpg" class="card-img-top" alt="Nasi Box Premium">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Nasi Box Premium</h5>
+                  <p class="card-text">Nasi putih, Rendang Sapi, sambal, sayur, Perkedel, Kerupuk, Buah, Air Mineral.</p>
+                </div>
+              </div>
+            </div>
+            <!-- Nasi Box 3 -->
+            <div class="col-md-4 mb-4">
+              <div class="card h-100">
+                <img src="css/img/nasibox2.jpg" class="card-img-top" alt="Nasi Box Standar">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Nasi Box Standar</h5>
+                  <p class="card-text">Nasi putih, Ayam, sambal, sayur, dan kerupuk.</p>
+                </div>
+              </div>
+            </div>
+            <!-- Tambah menu nasi box lain di sini -->
+              <div class="d-flex justify-content-center mt-4">
+          <a href="nasibox.html" class="btn btn-success btn-lg px-4 rounded-pill shadow" style="background: #198754; color: #fff;">
+            Menu Nasi Box Lainnya
+          </a>
+        </div>
+      </section>
+
+      <!-- Navigasi -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Inisialisasi Swiper -->
+<script>
+  const swiper = new Swiper(".jasaSwiper", {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    loop: true,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    breakpoints: {
+      576: { slidesPerView: 1.2 },
+      768: { slidesPerView: 2 },
+      992: { slidesPerView: 3 },
+    },
+  });
+</script>
+
+  </section>
+
+<!-- <section id="ulasan" class="py-5 bg-yellow">
+  <div class="container">
+    <h2 class="text-center mb-4">Apa Kata Mereka?</h2>
+    <div class="scroll-review-container">
+      <div class="scroll-review-content d-flex"> -->
+        
+        <!-- Ulasan 1 -->
+        <!-- <div class="card review-card text-center">
+          <img src="css/img/rina.jpg" class="card-img-top rounded-circle mx-auto mt-3" alt="Rina">
+          <div class="card-body">
+            <p class="card-text">"Pelayanannya cepat dan ramah. Saya sangat terbantu!"</p>
+            <h6 class="card-subtitle text-muted">-Rina</h6>
+          </div>
+        </div> -->
+
+        <!-- Ulasan 2 -->
+        <!-- <div class="card review-card text-center">
+          <img src="css/img/andi.jpg" class="card-img-top rounded-circle mx-auto mt-3" alt="Andi">
+          <div class="card-body">
+            <p class="card-text">"Mitra datang tepat waktu dan hasil bersihnya memuaskan."</p>
+            <h6 class="card-subtitle text-muted">-Andi</h6>
+          </div>
+        </div> -->
+
+        <!-- Ulasan 3 -->
+        <!-- <div class="card review-card text-center">
+          <img src="css/img/dewi.jpg" class="card-img-top rounded-circle mx-auto mt-3" alt="Dewi">
+          <div class="card-body">
+            <p class="card-text">"Saya pakai Bantuin untuk pindahan, semua beres!"</p>
+            <h6 class="card-subtitle text-muted">-Dewi</h6>
+          </div>
+        </div> -->
+
+        <!-- Duplikasi agar loop -->
+        <!-- <div class="card review-card text-center">
+          <img src="css/img/rina.jpg" class="card-img-top rounded-circle mx-auto mt-3" alt="Rina">
+          <div class="card-body">
+            <p class="card-text">"Pelayanannya cepat dan ramah. Saya sangat terbantu!"</p>
+            <h6 class="card-subtitle text-muted">-Rina</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- Footer ala Rumah Makan Padang -->
+<footer class="bg-success text-white pt-4 pb-2">
+  <div class="container">
+    <div class="row text-center text-md-start">
+      <div class="col-md-4 mb-3 mb-md-0">
+        <h5 class="fw-bold" style="font-family:'Pacifico',cursive;">RM. Salero Minang 2</h5>
+        <p class="mb-1">“Hidangan Minang, Hangatkan Kebersamaan”</p>
+        <p class="mb-0"><i class="fa-solid fa-location-dot me-2"></i>Jalan Cipaku No. 70, Ebah, Majalaya, Cipaku, Kec. Paseh, Kabupaten Bandung, Jawa Barat 40383</p>
+      </div>
+      <div class="col-md-4 mb-3 mb-md-0">
+        <h6 class="fw-bold mb-2">Jam Operasional</h6>
+        <p class="mb-1"><i class="fa-regular fa-clock me-2"></i>Senin - Minggu: 10:00 - 22:00 WIB</p>
+        <h6 class="fw-bold mb-2 mt-3">Kontak</h6>
+        <p class="mb-1"><i class="fa-brands fa-whatsapp me-2"></i>082228405121</p>
+        <p class="mb-1"><i class="fa-solid fa-envelope me-2"></i>salerominangg2@gmail.com</p>
+      </div>
+      <div class="col-md-3">
+        <h6 class="fw-bold mb-2">Order Online</h6>
+        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center justify-content-md-start">
+          <a href="https://shopee.co.id/universal-link/now-food/shop/22391856?deep_and_deferred=1&shareChannel=copy_link" target="_blank" class="order-link" title="Pesan via ShopeeFood" style="transition:transform 0.2s;">
+            <img src="css/img/Shopeefood1.png" alt="ShopeeFood" style="height:40px; width:auto; border-radius:10px; box-shadow:0 2px 8px rgba(255,87,34,0.15); background:#fff; padding:4px;">
+          </a>  
+          <a href="https://gofood.link/a/RjYQ5du" target="_blank" class="order-link" title="Pesan via GoFood" style="transition:transform 0.2s;">
+            <img src="css/img/Gofood.jpeg" alt="GoFood" style="height:40px; width:auto; border-radius:10px; box-shadow:0 2px 8px rgba(255,0,0,0.12); background:#fff; padding:4px;">
+          </a>
+          <a href="https://r.grab.com/g/6-20250925_201329_3b68b92102014291a0ad09a35a77de76_MEXMPS-6-C7NDNNN1NYJXGT" target="_blank" class="order-link" title="Pesan via GrabFood" style="transition:transform 0.2s;">
+            <img src="css/img/Grabfood.png" alt="GrabFood" style="height:40px; width:auto; border-radius:10px; box-shadow:0 2px 8px rgba(0,200,83,0.12); background:#fff; padding:4px;">
+          </a>
+        </div>
+        <style>
+          .order-link:hover img {
+            transform: scale(1.12) rotate(-3deg);
+            box-shadow: 0 4px 16px rgba(25,135,84,0.18);
+            filter: brightness(1.08);
+          }
+        </style>
+
+        <div class="mt-3">
+          <h6 class="fw-bold mb-2">Layanan</h6>
+          <span class="badge bg-warning text-dark ms-2">Dine-In</span>
+          <span class="badge bg-warning text-dark ms-1">Take Away</span>
+          <span class="badge bg-warning text-dark ms-1">Catering</span>
+        </div>
+      </div>
+    </div>
+    <hr class="my-3" style="border-color:rgba(255,255,255,0.3)">
+    <div class="text-center" style="font-size:0.95rem;">
+      &copy; 2025 RM. Salero Minang 2. All rights reserved. | Website by Pratama
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
